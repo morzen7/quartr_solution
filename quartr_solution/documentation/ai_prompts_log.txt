@@ -51,3 +51,7 @@ how can i get abs path?
 OSError: No wkhtmltopdf executable found: "b''"
 
 how can i make a docker container in github from my pycharm project?
+
+some debugging where the syntax was not right, and the path
+
+give me a readme file for this with running instructions https://github.com/morzen7/quartr_solution/tree/master
