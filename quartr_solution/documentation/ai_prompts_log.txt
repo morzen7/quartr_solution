@@ -1,0 +1,52 @@
+give me an example, how can i get the CIK number from amazon baed on this link : https://www.sec.gov/search-filings/edgar-search-assistance/accessing-edgar-data
+
+how can i search in this: https://www.sec.gov/files/company_tickers.json
+
+how can I download it, or get it from pycharm?
+
+"User-Agent": "Your Name [email protected]" ide mit kéne írjak?
+
+hogyan áll össze a válasz? / How does the answer come together?
+
+read json in
+
+what are the full names of these companies "Apple","Meta","Alphabet","Amazon","Netflix","Goldman Sachs"
+
+check if a file exists
+
+tölts fel nekem egy számot 0-val 10 számjegyre / Fill me a number with 0 to 10 digits
+
+Show me how to download the actual 10-K full document
+
+the 10-k not in the href, but it is in a table (tr), where there is a description (2. column) and where it is 10-k get the third column which is the href
+
+how to download this into a pdf
+
+is there any overwrite capability in the playwright solution?
+
+i need to add header to the page.goto(url_10_k_form, wait_until="networkidle")
+
+Automated access to our sites must comply with SEC.gov's Privacy and Security Policy. Please visit www.sec.gov/developer for more developer resources and Fair Access guidelines. Please visit www.sec.gov/privacy for more information on Privacy Policy. Reference ID: 0.4ba1702.1779299939.13a513df
+
+Your Request Originates from an Undeclared Automated Tool
+To allow for equitable access to all users, SEC reserves the right to limit requests
+originating from undeclared automated tools. Your request has been identified as part of a
+network of automated tools outside of the acceptable policy and will be managed until
+action is taken to declare your traffic.
+Please declare your traffic by updating your user agent to include company specific
+information.
+For best practices on efficiently downloading information from SEC.gov, including the latest
+EDGAR filings, visit sec.gov/developer. You can also sign up for email updates on the SEC
+open data program, including best practices that make it more efficient to download data,
+and SEC.gov enhancements that may impact scripted downloading processes. For more
+information, contact opendata@sec.gov.
+For more information, please see the SEC’s Web Site Privacy and Security Policy. Thank you
+for your interest in the U.S. Securities and Exchange Commission.
+Reference ID: 0.17ba1702.1779300678.abf0e2d6
+
+how can i make pdf from a html file witch is downloaded
+
+how can i get abs path?
+
+OSError: No wkhtmltopdf executable found: "b''"
+
