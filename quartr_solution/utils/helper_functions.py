@@ -1,33 +1,34 @@
-import requests
-from pathlib import Path
 import json
+import time
+from pathlib import Path
+
+import requests
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
-import time
 
-
-
-user_agent_name = "Tamas Torda"
-user_agent_mail = "iam.tamas.torda@gmail.com"
+user_agent_name = "Some Body"
+user_agent_mail = "iam.some.body@gmail.com"
 tickers_data_folder_base = Path("utils/tickers_data")
 
-def header_info():
+
+def _header_info():
     headers = {
         "User-Agent": f"{user_agent_name} [{user_agent_mail}]"
     }
     return headers
 
+
 def read_json(file_base_path=tickers_data_folder_base):
     filepath = file_base_path / "company_tickers.json"
     with open(filepath, "r") as f:
         data = json.load(f)
+    return data
 
-    return(data)
 
 def save_tickers(file_base_path=tickers_data_folder_base):
     url = "https://www.sec.gov/files/company_tickers.json"
 
-    headers = header_info()
+    headers = _header_info()
     data_folder = file_base_path
     data_folder.mkdir(exist_ok=True)
 
@@ -39,24 +40,27 @@ def save_tickers(file_base_path=tickers_data_folder_base):
 
     print(f"Saved to: {filepath.resolve()}")
 
-def get_cik(company_name:str, data):
-    return ([str(tick["cik_str"]).zfill(10) for tick in data.values()
-               if get_formatted_name(company_name) == get_formatted_name(tick["title"])][0])
 
-def get_formatted_name(name):
-
+def _get_formatted_name(name):
     elements = ["INC", ",", " ", "."]
     name = name.upper()
     for e in elements:
         name = name.replace(e, "")
     return name
 
+
+def get_cik(company_name: str, data):
+    return ([str(tick["cik_str"]).zfill(10) for tick in data.values()
+             if _get_formatted_name(company_name) == _get_formatted_name(tick["title"])][0])
+
+
 def get_company_submissions(cik_number):
-    headers = header_info()
+    headers = _header_info()
     url = f"https://data.sec.gov/submissions/CIK{cik_number}.json"
 
     data = requests.get(url, headers=headers).json()
     return data
+
 
 def get_forms(data, form_type="10-K"):
     filings = data["filings"]["recent"]
@@ -72,18 +76,19 @@ def get_forms(data, form_type="10-K"):
     else:
         return None
 
+
 def get_10_k_form_url(cik_number, accession_number):
     base_cik = str(int(cik_number))
     if not accession_number:
         return None
     accession_no_dash = accession_number.replace("-", "")
     url = f"https://www.sec.gov/Archives/edgar/data/{base_cik}/{accession_no_dash}/{accession_number}-index.html"
-    headers = header_info()
+    headers = _header_info()
     html = requests.get(url, headers=headers).text
     soup = BeautifulSoup(html, "html.parser")
 
     table = soup.find("table")
-
+    # no clue in the href, but there is a lable in col 2 if k-10
     for row in table.find_all("tr"):
         cols = row.find_all("td")
 
@@ -103,12 +108,14 @@ def get_10_k_form_url(cik_number, accession_number):
                 return full_url.replace('ix?doc=/', '')
         else:
             return None
+    return None
+
 
 def convert_sec_to_pdf(url_10_k_form, company_name, filling_date):
     base = Path.cwd()
-    output_html_path = f"{base}/html_output/{company_name}_10_k_{filling_date}.html"
+    output_html_path = f"{base}/html_outputs/{company_name}_10_k_{filling_date}.html"
     output_pdf_path = f"{base}/pdf_outputs/{company_name}_10_k_{filling_date}.pdf"
-    html = requests.get(url_10_k_form, headers=header_info()).text
+    html = requests.get(url_10_k_form, headers=_header_info()).text
 
     with open(output_html_path, "w", encoding="utf-8") as f:
         f.write(html)
@@ -128,7 +135,6 @@ def convert_sec_to_pdf(url_10_k_form, company_name, filling_date):
         # Load local HTML file
         page.goto(f"file://{html_file}")
 
-        # Give SEC pages time to fully render
         time.sleep(2)
 
         # Export to PDF
