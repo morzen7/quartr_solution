@@ -50,3 +50,4 @@ how can i get abs path?
 
 OSError: No wkhtmltopdf executable found: "b''"
 
+how can i make a docker container in github from my pycharm project?

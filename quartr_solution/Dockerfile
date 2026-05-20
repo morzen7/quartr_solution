@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY . /app
+
+RUN pip install --upgrade pip
+
+RUN pip install -r requirements.txt
+
+RUN python -m playwright install --with-deps chromium
+
+CMD ["python", "main.py"]
